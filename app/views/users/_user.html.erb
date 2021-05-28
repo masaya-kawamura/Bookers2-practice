@@ -1,5 +1,7 @@
 <h2>User info</h2>
-  <%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image.jpg",size: "100x100" %>
+  <%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image.jpg",size: "100x100" %><br/>
+  <%= render 'relationships/follow_form', user: user %>
+  <%= render 'relationships/relationship', user: user %>
   <table class="table">
     <tbody>
       <tr></tr>
