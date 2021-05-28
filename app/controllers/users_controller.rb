@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
+  # ユーザーがcurrent_userと同じじゃなかったらリダイレクト
   before_action :ensure_correct_user, {only: [:edit, :update]}
-
-
 
   def index
     @user = current_user
@@ -26,6 +25,23 @@ class UsersController < ApplicationController
       render :edit
     end
   end
+
+  #フォロー一覧ページ
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.following
+    render '_show_follow'
+  end
+
+  # フォロワー一覧ページ
+  def followers
+    @title = "Follower"
+    @user = User.find(params[:id])
+    @users = @user.followers
+    render '_show_follow'
+  end
+
 
     private
 
