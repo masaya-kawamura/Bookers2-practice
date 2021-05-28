@@ -1,0 +1,38 @@
+      <!--ここからコメント-->
+      <h4>comments(<%= @book.comments.count %>)</h4>
+
+      <!--ここからテーブル-->
+      <table class="table">
+
+        <thead>
+          <tr>
+            <th>user</th>
+            <th>comment</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <% @book.comments.each do |comment| %>
+
+        <tr>
+          <td>
+            <%= link_to user_path(comment.user.id) do %>
+            <%= attachment_image_tag comment.user, :profile_image, format:'jpeg', fallback: 'no_image.jpeg', size: "40x40" %><br/>
+            <%= comment.user.name %>
+            <% end %>
+          </td>
+          <td ><%= comment.comment %></td>
+          <% if comment.user.id == current_user.id %>
+          <td><%= link_to "Destroy", book_comment_path(comment.book.id,comment.id), method: :delete, class:"btn btn-danger" %></td>
+          <% end %>
+        </tr>
+
+        <% end %>
+
+      </table>
+
+      <!--ここからコメント投稿機能-->
+      <%= form_with model:[book, comment], local:true do |f| %>
+      <%= f.text_area :comment %><br/>
+      <%= f.submit "送信する" %>
+      <% end %>
